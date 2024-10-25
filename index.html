@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confession for You ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <div class="envelope" id="envelope">
+      <div class="front">
+        <div class="heart"></div> <!-- Love dengan animasi -->
+      </div>
+      <div class="back">
+        <p id="message">Hey, ada sesuatu yang mau aku bilang...</p>
+        <button id="chat-button" class="hidden">Chat Me 💬</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bg-music" src="your-music.mp3" autoplay loop></audio>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const message = document.getElementById('message');
+    const chatButton = document.getElementById('chat-button');
+
+    // Array pesan yang akan ditampilkan secara berurutan
+    const messages = [
+      "Hai Ciya, maaf jika selama ini aku seakan-akan tidak terlalu memberi kepastian...",
+      "Aku udah lama ngerasain ini, tapi ragu buat ngomong.",
+      "Aku suka sama kamu... ❤️, And I know u know it",
+      "So in this time, I gonna say 😊",
+      "Wanna be mine? Hehe 😊",
+      "Kamu bisa balas ini kapanpun kamu mau kok"
+    ];
+
+    let currentMessageIndex = 0; // Index pesan saat ini
+    const bgMusic = document.getElementById('bg-music');
+    bgMusic.volume = 0.5; // Atur volume musik
+
+    // Event click untuk buka amplop dan tampilkan pesan baru
+    envelope.addEventListener('click', () => {
+      if (currentMessageIndex < messages.length) {
+        // Buka amplop dan tampilkan pesan
+        envelope.style.transform = 'rotateX(180deg)';
+        
+        setTimeout(() => {
+          message.textContent = messages[currentMessageIndex];
+
+          // Tampilkan button hanya di pesan terakhir
+          if (currentMessageIndex === messages.length - 1) {
+            chatButton.classList.remove('hidden');
+          } else {
+            chatButton.classList.add('hidden');
+          }
+
+          currentMessageIndex++;
+        }, 500); // Delay agar pesan muncul setelah amplop terbuka
+
+        // Jika pesan terakhir sudah ditampilkan, amplop otomatis tertutup setelah beberapa detik
+        if (currentMessageIndex === messages.length) {
+          setTimeout(() => {
+            envelope.style.transform = 'rotateX(0deg)'; // Tutup amplop
+            currentMessageIndex = 0; // Reset ke pesan pertama
+          }, 3000); // Waktu tunggu sebelum amplop tertutup otomatis
+        }
+      }
+    });
+
+    // Event click untuk membuka link Telegram saat button ditekan
+    chatButton.addEventListener('click', () => {
+      window.open('https://t.me/failed2access', '_blank');
+    });
+  </script>
+</body>
+</html>
